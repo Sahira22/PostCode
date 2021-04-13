@@ -2,6 +2,7 @@ package practicas.postcode.models.responses;
 
 public class UserRest {
 
+    private String userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -11,6 +12,12 @@ public class UserRest {
    
     public String getFirstName() {
         return firstName;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
