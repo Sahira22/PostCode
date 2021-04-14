@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import practicas.postcode.UserRepository;
+import practicas.postcode.repositories.UserRepository;
 import practicas.postcode.entities.UserEntity;
 import practicas.postcode.shared.dto.UserDto;
 

@@ -1,4 +1,4 @@
-package practicas.postcode;
+package practicas.postcode.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
