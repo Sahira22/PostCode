@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import practicas.postcode.SpringApplicationContext;
 import practicas.postcode.models.requests.UserLoginRequestModel;
 import practicas.postcode.services.UserServiceInterface;
 import practicas.postcode.shared.dto.UserDto;
@@ -56,13 +57,14 @@ public Authentication attemptAuthentication(HttpServletRequest request, HttpServ
 
         String token = Jwts.builder().setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_DATE))
-                .signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKE_SECRET).compact();
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.getTokenSecret()).compact();
 
-        /** UserServiceInterface userService = (UserServiceInterface) SpringApplicationContext.getBean("userService");
+         UserServiceInterface userService = (UserServiceInterface) SpringApplicationContext.getBean("userService");
         UserDto userDto = userService.getUser(username);
 
-        response.addHeader("Access-Control-Expose-Headers", "Authorization, UserId");
-        response.addHeader("UserId", userDto.getUserId());*/
+        /**Anadiendo el Iduser al Header 
+        response.addHeader("Access-Control-Expose-Headers", "Authorization, UserId");*/
+        response.addHeader("UserId", userDto.getUserId());
         response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 
     }

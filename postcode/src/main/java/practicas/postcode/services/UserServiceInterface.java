@@ -8,5 +8,7 @@ public interface UserServiceInterface extends UserDetailsService {
     
     public UserDto createUser(UserDto user);
 
+    public UserDto getUser(String username);
+
     
 }

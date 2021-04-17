@@ -53,10 +53,34 @@ public class UserService implements UserServiceInterface {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity= userRepository.findByEmail(email);
 
+        if(userEntity==null){
 
+
+            throw new UsernameNotFoundException(email);
+        }
 
           
         return new User(userEntity.getEmail(),userEntity.getEncryptedPassword(), new ArrayList<>());
+    }
+
+    @Override
+    public UserDto getUser(String email) {
+
+        UserEntity userEntity= userRepository.findByEmail(email);
+
+        if(userEntity==null){
+
+
+            throw new UsernameNotFoundException(email);
+        }
+
+
+        // TODO Auto-generated method stub
+       UserDto userToReturn= new UserDto();
+
+       BeanUtils.copyProperties(userEntity, userToReturn);
+
+       return userToReturn;
     }
     
 }

@@ -6,9 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 
 @Entity(name= "user")
+@Table(indexes = { @Index(columnList = "userId", name = "index_userid", unique = true),
+        @Index(columnList = "email", name = "index_email", unique = true) })
+
+
 public class UserEntity implements Serializable {
 
 
