@@ -1,5 +1,6 @@
 package practicas.postcode.shared.dto;
 import java.io.Serializable;
+import java.util.List;
 
 public class UserDto implements Serializable {
 
@@ -12,6 +13,7 @@ private String lastName;
 private String email;
 private String password;
 private String encryptedPassword;
+private List<PostDto> posts;
 
 public long getId() {
     return id;
@@ -54,5 +56,11 @@ public String getEncryptedPassword() {
 }
 public void setEncryptedPassword(String encryptedPassword) {
     this.encryptedPassword = encryptedPassword;
+}
+public List<PostDto> getPosts() {
+    return posts;
+}
+public void setPosts(List<PostDto> posts) {
+    this.posts = posts;
 }
 } 

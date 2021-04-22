@@ -3,11 +3,13 @@ package practicas.postcode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import practicas.postcode.security.AppProperties;
 
 @SpringBootApplication
+@EnableJpaAuditing /**Con esta anotacion se permite la generacion de las fechas automaticas */
 public class PostcodeApplication {
 
 	public static void main(String[] args) {
