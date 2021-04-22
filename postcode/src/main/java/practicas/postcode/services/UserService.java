@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import practicas.postcode.repositories.UserRepository;
 import practicas.postcode.entities.UserEntity;
+import practicas.postcode.exceptions.EmailExistsException;
 import practicas.postcode.shared.dto.UserDto;
 
 
@@ -29,8 +30,8 @@ public class UserService implements UserServiceInterface {
     public UserDto createUser(UserDto user) {
         
         if(userRepository.findByEmail(user.getEmail()) != null)
-        throw new RuntimeException("El usuario que desea insertar ya existe, por favor intente nuevamente");      
-     
+        throw new EmailExistsException("El usuario que desea insertar ya existe, por favor intente nuevamente");      
+     /**Este es el mensaje que la clase EmailExists recibira*/
    
      UserEntity userEntity= new UserEntity();
      BeanUtils.copyProperties(user, userEntity);
