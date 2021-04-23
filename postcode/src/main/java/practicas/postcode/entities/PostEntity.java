@@ -35,10 +35,26 @@ public class PostEntity implements Serializable {
     private String content;
 
     @Column(nullable = false,columnDefinition="TEXT")
-    private Date expires_at;
+    private Date expiresAt;
 
     @CreatedDate/**Esto es para que se genere automaticamente la fecha cuando se crea un post */
-    private Date created_at;
+    private Date createdAt;
+
+    public Date getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(Date expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     @ManyToOne
     @JoinColumn(name="user_id") /**Relacionando tablas por Joins de user */
@@ -80,22 +96,7 @@ public class PostEntity implements Serializable {
         this.content = content;
     }
 
-    public Date getExpires_at() {
-        return expires_at;
-    }
-
-    public void setExpires_at(Date expires_at) {
-        this.expires_at = expires_at;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
+   
     public UserEntity getUser() {
         return user;
     }

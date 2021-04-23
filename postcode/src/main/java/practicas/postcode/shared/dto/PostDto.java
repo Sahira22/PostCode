@@ -21,9 +21,9 @@ public class PostDto implements Serializable {
 
  private String content;
 
- private Date expires_at;
+ private Date expiresAt;
 
- private Date created_at;
+ private Date createdAt;
 
  private UserEntity user;
 
@@ -61,20 +61,21 @@ public void setContent(String content) {
     this.content = content;
 }
 
-public Date getExpires_at() {
-    return expires_at;
+
+public Date getExpiresAt() {
+    return expiresAt;
 }
 
-public void setExpires_at(Date expires_at) {
-    this.expires_at = expires_at;
+public void setExpiresAt(Date expiresAt) {
+    this.expiresAt = expiresAt;
 }
 
-public Date getCreated_at() {
-    return created_at;
+public Date getCreatedAt() {
+    return createdAt;
 }
 
-public void setCreated_at(Date created_at) {
-    this.created_at = created_at;
+public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
 }
 
 public UserEntity getUser() {
