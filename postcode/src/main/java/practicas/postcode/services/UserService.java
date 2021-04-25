@@ -1,8 +1,10 @@
 package practicas.postcode.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -11,9 +13,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import practicas.postcode.repositories.PostRepository;
 import practicas.postcode.repositories.UserRepository;
+import practicas.postcode.entities.PostEntity;
 import practicas.postcode.entities.UserEntity;
 import practicas.postcode.exceptions.EmailExistsException;
+import practicas.postcode.shared.dto.PostDto;
 import practicas.postcode.shared.dto.UserDto;
 
 
@@ -22,6 +27,12 @@ public class UserService implements UserServiceInterface {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    ModelMapper  mapper; //Aqui se cre una instancia global por lo cual no hay que instanciar en cada metodo, esto se define como Bean en el POSTCODE//
 
     @Autowired 
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -76,12 +87,27 @@ public class UserService implements UserServiceInterface {
         }
 
 
-        // TODO Auto-generated method stub
+       
        UserDto userToReturn= new UserDto();
 
        BeanUtils.copyProperties(userEntity, userToReturn);
 
        return userToReturn;
+    }
+
+    @Override
+    public List<PostDto> getUserPosts(String email) {
+        
+    UserEntity userEntity= userRepository.findByEmail(email);
+
+    List<PostEntity> posts= postRepository.getByUserIdOrderByCreatedAtDesc(userEntity.getId());
+        List<PostDto> postDtos= new ArrayList<>();
+
+        for(PostEntity post : posts){
+            PostDto postDto= mapper.map(post, PostDto.class);
+            postDtos.add(postDto);
+        }
+        return postDtos;
     }
     
 }

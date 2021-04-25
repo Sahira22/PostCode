@@ -1,7 +1,10 @@
 package practicas.postcode.services;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import practicas.postcode.shared.dto.PostDto;
 import practicas.postcode.shared.dto.UserDto;
 
 public interface UserServiceInterface extends UserDetailsService {
@@ -10,5 +13,5 @@ public interface UserServiceInterface extends UserDetailsService {
 
     public UserDto getUser(String username);
 
-    
+    public List<PostDto> getUserPosts(String email);
 }

@@ -3,6 +3,7 @@ package practicas.postcode.services;
 import java.util.Date;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,16 @@ import practicas.postcode.shared.dto.PostDto;
 public class PostService implements PostServiceInterface{
     
 @Autowired
-PostRepository PostRepository;
+PostRepository postRepository;
 
 @Autowired
 UserRepository userRepository;
 
 @Autowired
 ExposureRepository exposureRepository;
+
+@Autowired
+ModelMapper mapper;
 
 @Override
 public PostDto createPost(PostCreationDto post){
@@ -40,6 +44,12 @@ public PostDto createPost(PostCreationDto post){
         postEntity.setContent(post.getContent());
         postEntity.setPostId(UUID.randomUUID().toString());
         postEntity.setExpiresAt(new Date(System.currentTimeMillis() + (post.getExpirationTime() * 60000)));
-    return null;
+   
+        PostEntity createdPost = postRepository.save(postEntity);
+
+
+        PostDto postToReturn = mapper.map(createdPost, PostDto.class);
+
+        return postToReturn;
 }
 }
