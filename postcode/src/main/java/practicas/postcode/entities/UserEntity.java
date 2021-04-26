@@ -25,8 +25,6 @@ public class UserEntity implements Serializable {
 private static final long serialVersionUID = 1L;
 
 
-
-
 @Id
 @GeneratedValue
 private long id;
@@ -108,7 +106,7 @@ public String getEncryptedPassword() {
 public void setEncryptedPassword(String encryptedPassword) {
     this.encryptedPassword = encryptedPassword;
 }
-
+//Lista de post para devolverla al usuario loggeado
 public List<PostEntity> getPosts() {
     return posts;
 }

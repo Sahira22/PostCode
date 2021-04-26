@@ -44,6 +44,7 @@ public class PostController {
     @PostMapping
     public PostRest createPost(@RequestBody PostCreateRequestModel createRequestModel){
     
+        //Autenticando con el token que se genera al iniciar session para que se le sea permitido realizar aaciones
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String email = authentication.getPrincipal().toString();
@@ -67,10 +68,11 @@ public class PostController {
 
 @GetMapping(path = "/last") // localhost:8080/posts/last
 public List<PostRest> lastPosts() {
-    List<PostDto> posts = postService.getLastPosts();
+    List<PostDto> posts = postService.getLastPosts(); //Se carga desde los servicios de tipo interface
 
     List<PostRest> postRests = new ArrayList<>();
 
+    //Ciclo para cargar los datos de cada post. Viene con los datos del user y exposure
     for (PostDto post : posts) {
         PostRest postRest = mapper.map(post, PostRest.class);
         postRests.add(postRest);

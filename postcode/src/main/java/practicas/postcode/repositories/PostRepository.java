@@ -12,9 +12,10 @@ import practicas.postcode.entities.PostEntity;
 public interface PostRepository extends PagingAndSortingRepository<PostEntity, Long>{
     List<PostEntity> getByUserIdOrderByCreatedAtDesc(long userId);
 
-    
+    //Esta anotacion nos permite introducir queries de forma nativa, este en especifico nos devuelve los ultimos 20 posts creados recientemente
     @Query(value = "SELECT * FROM posts p WHERE p.exposure_id = :exposure and p.expires_at > :now ORDER BY created_at DESC LIMIT 20", nativeQuery = true)
     List<PostEntity> getLastPublicPosts(@Param("exposure") long exposureId, @Param("now") Date now);
 
-    PostEntity findByPostId(String postId);
+    
+    PostEntity findByPostId(String postId);//Este busca los post por Id
 }

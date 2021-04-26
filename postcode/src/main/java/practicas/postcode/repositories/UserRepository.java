@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import practicas.postcode.entities.UserEntity;
 
+//En los repositorios agregamos los metodos o tipos consultas que se desean generar
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long>{
     

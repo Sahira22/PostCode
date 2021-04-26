@@ -45,13 +45,13 @@ public UserRest getUser(){
 
     UserRest userToReturn = new UserRest();
 
-    BeanUtils.copyProperties(userDto, userToReturn);
+    BeanUtils.copyProperties(userDto, userToReturn); //BeanUtils permite copiar los datos de un tipo de objeto a otro
 
     return userToReturn;
 }
 
 
-@PostMapping
+@PostMapping//Crear usuario
 public UserRest createUser(@RequestBody UserDeatailsRequestModel userDetails){
 
   UserRest userToReturn= new UserRest();
@@ -68,7 +68,7 @@ public UserRest createUser(@RequestBody UserDeatailsRequestModel userDetails){
 
     }
 
-    
+    //Ver los posts de el usuario que esta loggeado
     @GetMapping(path = "/posts") // localhost:8080/users/posts
     public List<PostRest> getPosts() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
