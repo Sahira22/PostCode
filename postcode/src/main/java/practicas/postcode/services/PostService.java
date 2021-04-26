@@ -1,6 +1,8 @@
 package practicas.postcode.services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -52,4 +54,61 @@ public PostDto createPost(PostCreationDto post){
 
         return postToReturn;
 }
+
+@Override
+public List<PostDto> getLastPosts() {
+
+    long publicExposureId=2;
+
+    List<PostEntity> postEntities = postRepository.getLastPublicPosts(publicExposureId,
+            new Date(System.currentTimeMillis()));
+
+    List<PostDto> postDtos = new ArrayList<>();
+
+    for (PostEntity post : postEntities) {
+        PostDto postDto = mapper.map(post, PostDto.class);
+        postDtos.add(postDto);
+    }
+
+    return postDtos;
+}
+
+@Override
+public PostDto getPost(String postId) {
+  
+    PostEntity postEntity = postRepository.findByPostId(postId);
+    PostDto postDto = mapper.map(postEntity, PostDto.class);
+    return postDto;
+}
+
+@Override
+public void deletePost(String postId, long userId) {
+    PostEntity postEntity = postRepository.findByPostId(postId);
+    if (postEntity.getUser().getId() != userId)
+    throw new RuntimeException("No se puede realizar esta accion");
+
+    postRepository.delete(postEntity);
+    
+}
+
+@Override
+public PostDto updatePost(String postId, long userId, PostCreationDto postUpdateDto) {
+    PostEntity postEntity = postRepository.findByPostId(postId);
+    if (postEntity.getUser().getId() != userId)
+        throw new RuntimeException("No se puede realizar esta accion");
+
+    ExposureEntity exposureEntity = exposureRepository.findById(postUpdateDto.getExposureId());
+
+    postEntity.setExposure(exposureEntity);
+    postEntity.setTitle(postUpdateDto.getTitle());
+    postEntity.setContent(postUpdateDto.getContent());
+    postEntity.setExpiresAt(new Date(System.currentTimeMillis() + (postUpdateDto.getExpirationTime() * 60000)));
+
+    PostEntity updatedPost = postRepository.save(postEntity);
+
+    PostDto postDto = mapper.map(updatedPost, PostDto.class);
+
+    return postDto;
+}
+
 }

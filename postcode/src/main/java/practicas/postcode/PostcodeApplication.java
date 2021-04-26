@@ -22,14 +22,14 @@ public class PostcodeApplication {
 		
 	}
 
-	 @Bean
+	 	@Bean
 		public BCryptPasswordEncoder bCryptPasswordEncoder(){
 
 			return new BCryptPasswordEncoder();
 		}
 
 
-	@Bean
+		@Bean
 		public SpringApplicationContext springApplicationContext(){
 
 			return new SpringApplicationContext();
@@ -43,12 +43,12 @@ public class PostcodeApplication {
 		}
 
 		
-	@Bean
-	public ModelMapper modelMapper() {
+		@Bean
+		public ModelMapper modelMapper() {
 		ModelMapper mapper = new ModelMapper();
 
-		mapper.typeMap(UserDto.class, UserRest.class).addMappings(m -> m.skip(UserRest::setPosts));
-
-		return mapper;
+		//mapper.typeMap(UserDto.class, UserRest.class).addMappings(m -> m.skip(UserRest::setPosts));
+				
+			return mapper;
 	}
 }

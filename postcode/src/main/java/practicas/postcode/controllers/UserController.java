@@ -54,23 +54,23 @@ public UserRest getUser(){
 @PostMapping
 public UserRest createUser(@RequestBody UserDeatailsRequestModel userDetails){
 
-UserRest userToReturn= new UserRest();
+  UserRest userToReturn= new UserRest();
 
-UserDto userDto= new UserDto();
+  UserDto userDto= new UserDto();
 
-BeanUtils.copyProperties(userDetails, userDto);
+  BeanUtils.copyProperties(userDetails, userDto);
 
-UserDto createdUser= userService.createUser(userDto);
+  UserDto createdUser= userService.createUser(userDto);
 
-BeanUtils.copyProperties(createdUser, userToReturn);
+  BeanUtils.copyProperties(createdUser, userToReturn);
 
-return userToReturn;
+    return userToReturn;
 
     }
 
+    
     @GetMapping(path = "/posts") // localhost:8080/users/posts
     public List<PostRest> getPosts() {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String email = authentication.getPrincipal().toString();
@@ -79,12 +79,12 @@ return userToReturn;
 
         List<PostRest> postRests = new ArrayList<>();
 
-         for (PostDto post : posts) {
-          PostRest postRest = mapper.map(post, PostRest.class);
-        //     if (postRest.getExpiresAt().compareTo(new Date(System.currentTimeMillis())) < 0) {
-        //         postRest.setExpired(true);
-        //     }
-          postRests.add(postRest);
+        for (PostDto post : posts) {
+            PostRest postRest = mapper.map(post, PostRest.class);
+            if (postRest.getExpiresAt().compareTo(new Date(System.currentTimeMillis())) < 0) {
+                postRest.setExpired(true);
+            }
+            postRests.add(postRest);
         }
 
         return postRests;

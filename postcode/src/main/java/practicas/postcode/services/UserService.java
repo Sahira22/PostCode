@@ -31,11 +31,13 @@ public class UserService implements UserServiceInterface {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired 
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     ModelMapper  mapper; //Aqui se cre una instancia global por lo cual no hay que instanciar en cada metodo, esto se define como Bean en el POSTCODE//
 
-    @Autowired 
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+   
 
     @Override
     public UserDto createUser(UserDto user) {
