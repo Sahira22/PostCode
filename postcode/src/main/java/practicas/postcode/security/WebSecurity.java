@@ -26,6 +26,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/users").permitAll()
         .antMatchers(HttpMethod.GET, "/posts/last").permitAll() //Esto permite que se pueda acceder al route sin autorizacion o token
         .antMatchers(HttpMethod.GET, "/posts/{id}").permitAll() 
+        .antMatchers(HttpMethod.PUT, "/{email}").permitAll() 
         .anyRequest()
         .authenticated().and().addFilter(getAuthenticationFilter())
         .addFilter(new AuthorizationFilter(authenticationManager())).sessionManagement()

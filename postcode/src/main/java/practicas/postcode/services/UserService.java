@@ -111,5 +111,27 @@ public class UserService implements UserServiceInterface {
         }
         return postDtos;
     }
+
+    @Override
+    public UserDto updateUser(String userId, UserDto userUpdate) {
+        UserEntity userEntity=userRepository.findByUserId(userId);
+
+        userEntity.setFirstName(userUpdate.getFirstName());
+        userEntity.setLastName(userUpdate.getLastName());
+        userEntity.setEmail(userUpdate.getEmail());
+        userEntity.setPassword(userUpdate.getPassword());
+
+        UserEntity userUpdated= userRepository.save(userEntity);
+    
+
+        UserDto userDto=mapper.map(userUpdated, UserDto.class);
+
+
+
+
+        return userDto;
+
+
+    }
     
 }

@@ -47,7 +47,7 @@ public class PostcodeApplication {
 		public ModelMapper modelMapper() {
 		ModelMapper mapper = new ModelMapper();
 
-		//mapper.typeMap(UserDto.class, UserRest.class).addMappings(m -> m.skip(UserRest::setPosts));
+		mapper.typeMap(UserDto.class, UserRest.class).addMappings(m -> m.skip(UserRest::setPosts));
 				
 			return mapper;
 	}

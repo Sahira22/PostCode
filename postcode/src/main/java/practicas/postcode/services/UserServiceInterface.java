@@ -14,4 +14,6 @@ public interface UserServiceInterface extends UserDetailsService {
     public UserDto getUser(String username);
 
     public List<PostDto> getUserPosts(String email);
+
+    public UserDto updateUser(String userId, UserDto userUpdate);
 }

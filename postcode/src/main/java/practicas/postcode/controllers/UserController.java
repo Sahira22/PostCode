@@ -11,7 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -88,5 +90,24 @@ public UserRest createUser(@RequestBody UserDeatailsRequestModel userDetails){
         }
 
         return postRests;
+    }
+
+    @PutMapping(path = "/{userId}")
+    public UserRest updateUser(@RequestBody UserDeatailsRequestModel userDetails,  @PathVariable String userId ){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getPrincipal().toString();
+
+        //UserDto user = userService.getUser(authentication.getPrincipal().toString());
+        /** Recibo los datos segun el modelo,se mapean para una clase Dto. Luego con el servicio 
+        realizo la transformacion haciendo uso del repositorio para que se guarde como entidad*/
+           UserDto userUpdate= mapper.map(userDetails,UserDto.class );
+           
+            UserDto userDto= userService.updateUser(userId, userUpdate);
+
+            UserRest userUpdated=mapper.map(userDto, UserRest.class);
+        
+        return userUpdated;
+
     }
 }
